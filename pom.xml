@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.diaspark</groupId>
-	<artifactId>INB-app</artifactId>
+	<artifactId>INB</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>INB-app</name>
+	<name>INB</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
