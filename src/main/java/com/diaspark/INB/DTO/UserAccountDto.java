@@ -5,6 +5,15 @@ public class UserAccountDto {
 
 	private int accountType;
     private long accountBalance;
+    private long customerId;
+
+	public long getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(long customerId) {
+		this.customerId = customerId;
+	}
 
 	public long getAccountBalance() {
 		return accountBalance;
