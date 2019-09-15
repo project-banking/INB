@@ -19,6 +19,12 @@ public class UserAccount {
 	@ManyToOne
 	@JoinColumn(name="customer_id",referencedColumnName="customer_id")
 	private User user;
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	//@Size(max = 20)
