@@ -1,1 +1,7 @@
 /target/
+/.project/
+/HELP.md/
+/mvw/
+/mvnw.cmd/
+/INB.iml/
+/INB(1).iml/

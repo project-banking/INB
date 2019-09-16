@@ -3,6 +3,7 @@ package com.diaspark.INB.controller;
 import com.diaspark.INB.DTO.LoginUserDTO;
 import com.diaspark.INB.DTO.RegisterUserDTO;
 import com.diaspark.INB.DTO.UserAccountDto;
+import com.diaspark.INB.DTO.UserResponseDTO;
 import com.diaspark.INB.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +25,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String authenticate(@RequestBody LoginUserDTO loginUserDTO) {
+    public UserResponseDTO authenticate(@RequestBody LoginUserDTO loginUserDTO) throws Exception{
         return userService.authenticateUser(loginUserDTO);
     }
     
