@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name="users")
@@ -44,9 +45,6 @@ public class User {
 	private int accountType;
 	private boolean isApproved;
 	
-
-
-
 	@Column(name="last_used",nullable=true)
 	private Date lastUsed;
 

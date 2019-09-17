@@ -23,7 +23,11 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 
 
 @Service
@@ -71,6 +75,7 @@ public class UserServiceImpl implements UserService {
         newUser.setCity(registerUserDTO.getCity());
         newUser.setPhone(registerUserDTO.getPhone());
         newUser.setUsername(registerUserDTO.getUsername());
+        //newUser.setStatus("Pending");
         return newUser;
     }
 
@@ -174,5 +179,23 @@ public class UserServiceImpl implements UserService {
     		}
     		return emailResponseDTO;
     	
-    }
-}
+        }
+
+		@Override
+		public List<String> retreiveUsersName() {
+
+			List<String> userNames = new  ArrayList<String>();
+			List<User> userList = userRepository.findAll();
+			String userName = null;
+			//userName1 = null;
+			for(User user : userList ) { //for each loop/ how to use this in java 8
+				userName = user.getUsername();
+				
+				userNames.add(userName);
+				//userName1=user.getPassword();
+				//userNames.add(userName1);
+			}
+
+			return userNames;
+		
+		}}
