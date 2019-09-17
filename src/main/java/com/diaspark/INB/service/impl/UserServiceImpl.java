@@ -1,5 +1,7 @@
 package com.diaspark.INB.service.impl;
 
+import com.diaspark.INB.DTO.ContactUsDTO;
+import com.diaspark.INB.DTO.EmailResponseDTO;
 import com.diaspark.INB.DTO.LoginUserDTO;
 import com.diaspark.INB.DTO.RegisterUserDTO;
 import com.diaspark.INB.DTO.UserAccountDto;
@@ -12,9 +14,11 @@ import com.diaspark.INB.exception.ForbiddenException;
 import com.diaspark.INB.exception.NotFoundException;
 import com.diaspark.INB.repository.UserAccountRepository;
 import com.diaspark.INB.repository.UserRepository;
+import com.diaspark.INB.service.ContactUsMailService;
 import com.diaspark.INB.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.MailException;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.Cookie;
@@ -67,7 +71,6 @@ public class UserServiceImpl implements UserService {
         newUser.setCity(registerUserDTO.getCity());
         newUser.setPhone(registerUserDTO.getPhone());
         newUser.setUsername(registerUserDTO.getUsername());
-
         return newUser;
     }
 
@@ -91,7 +94,15 @@ public class UserServiceImpl implements UserService {
         userResponseDTO.setCity(existingUser.getCity());
         userResponseDTO.setEmail(existingUser.getEmail());
         userResponseDTO.setToken(token);
-
+        userResponseDTO.setPhone(existingUser.getPhone());
+        userResponseDTO.setAddressLine1(existingUser.getAddressLine1());
+        userResponseDTO.setAddressLine2(existingUser.getAddressLine2());
+        userResponseDTO.setAddressLine3(existingUser.getAddressLine3());
+        userResponseDTO.setZip(existingUser.getZip());
+        userResponseDTO.setMobile(existingUser.getCell());
+        userResponseDTO.setUsername(existingUser.getUsername());
+        userResponseDTO.setCustomerId(existingUser.getCustomerId());
+     
         //adding token to cookie
         httpServletResponse.addCookie(buildCookies("X-AUTH-TOKEN", token));
 
@@ -100,6 +111,7 @@ public class UserServiceImpl implements UserService {
 
     private UserPrincipal buildUserPrincipal(User user) throws Exception {
         Date now = new Date();
+        
         Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
 
         UserPrincipal userPrincipal = new UserPrincipal();
@@ -139,5 +151,28 @@ public class UserServiceImpl implements UserService {
         userAccount.setAccountType(userAccountDto.getAccountType());
         userAccount.setUser(user);
         userAccountRepository.save(userAccount);
+    }
+    @Autowired
+	private ContactUsMailService notificationService;
+        public EmailResponseDTO send( ContactUsDTO contactUsDTO) {
+        	EmailResponseDTO emailResponseDTO=new EmailResponseDTO();
+        	emailResponseDTO.setContactUsResponse("Email sent Succesfully");
+        
+
+    		/*
+    		 * Creating a User with the help of User class that we have declared and setting
+    		 * Email address of the sender.
+    		 */
+    		contactUsDTO.setEmail("IndianNetBank3A@gmail.com");  //Receiver's email address
+    		/*
+    		 * Here we will call sendEmail() for Sending mail to the sender.
+    		 */
+    		try {
+    			notificationService.sendEmail( contactUsDTO);
+    		} catch (MailException mailException) {
+    			System.out.println(mailException);
+    		}
+    		return emailResponseDTO;
+    	
     }
 }

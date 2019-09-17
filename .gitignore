@@ -5,3 +5,14 @@
 /mvnw.cmd/
 /INB.iml/
 /INB(1).iml/
+# Eclipse Core      
+.project
+
+# JDT-specific (Eclipse Java Development Tools)     
+.classpath
+/target/
+/.classpath
+/*.project
+/.settings
+/*.iml
+/*.md

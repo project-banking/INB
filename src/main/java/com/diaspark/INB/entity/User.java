@@ -43,6 +43,9 @@ public class User {
 	private String email;
 	private int accountType;
 	private boolean isApproved;
+	
+
+
 
 	@Column(name="last_used",nullable=true)
 	private Date lastUsed;

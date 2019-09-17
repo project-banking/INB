@@ -19,6 +19,7 @@ public class UserResponseDTO {
     private int mobile;
     private String email;
     private boolean isApproved;
+    
 
     public String getToken() {
         return token;

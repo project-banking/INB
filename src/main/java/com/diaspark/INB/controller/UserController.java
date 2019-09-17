@@ -1,5 +1,7 @@
 package com.diaspark.INB.controller;
 
+import com.diaspark.INB.DTO.ContactUsDTO;
+import com.diaspark.INB.DTO.EmailResponseDTO;
 import com.diaspark.INB.DTO.LoginUserDTO;
 import com.diaspark.INB.DTO.RegisterUserDTO;
 import com.diaspark.INB.DTO.UserAccountDto;
@@ -18,6 +20,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    /*@Autowired
+	private MailService notificationService;
+*/
 
     @PostMapping("/registration")
     public void registration(@RequestBody RegisterUserDTO registerUserDTO) {
@@ -32,5 +37,10 @@ public class UserController {
     @PostMapping("/account")
     public void account(@RequestBody UserAccountDto userAccountDto) {
     	 userService.saveAccount(userAccountDto);
+    }
+    @PostMapping("/Contact-Us")
+    public EmailResponseDTO send(@RequestBody ContactUsDTO contactUsDTO) {
+    	return userService.send(contactUsDTO);
+    	
     }
 }
