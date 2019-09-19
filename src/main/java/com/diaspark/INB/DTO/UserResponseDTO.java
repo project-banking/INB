@@ -15,11 +15,18 @@ public class UserResponseDTO {
     private String city;
     private String state;
     private int zip;
-    private int phone;
-    private int mobile;
+    private String phone;
+    private String mobile;
     private String email;
-    private boolean isApproved;
-    
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public String getToken() {
         return token;
@@ -111,19 +118,19 @@ public class UserResponseDTO {
         this.zip = zip;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
-    public int getMobile() {
+    public String getMobile() {
         return mobile;
     }
 
-    public void setMobile(int mobile) {
+    public void setMobile(String mobile) {
         this.mobile = mobile;
     }
 
@@ -134,13 +141,6 @@ public class UserResponseDTO {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public boolean isApproved() {
-        return isApproved;
-    }
-
-    public void setApproved(boolean approved) {
-        isApproved = approved;
-    }
+    
 }
 

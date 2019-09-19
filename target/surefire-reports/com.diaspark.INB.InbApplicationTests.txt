@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.diaspark.INB.InbApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 36.61 s - in com.diaspark.INB.InbApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 59.558 s - in com.diaspark.INB.InbApplicationTests

@@ -1,11 +1,12 @@
 package com.diaspark.INB.DTO;
 
-public class ContactUsDTO {
+public class SendMailDTO {
 	private String firstName;
 	private String lastName;
-	private String email;
+	private String toAddress;
 	private String queries;
 	private String username;
+	private String subject;
 	
 	public String getUsername() {
 		return username;
@@ -13,11 +14,11 @@ public class ContactUsDTO {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public String getEmail() {
-		return email;
+	public String getToAddress() {
+		return toAddress;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setToAddress(String toAddress) {
+		this.toAddress = toAddress;
 	}
 	public String getFirstName() {
 		return firstName;
@@ -37,6 +38,12 @@ public class ContactUsDTO {
 	public void setQueries(String queries) {
 		this.queries = queries;
 	}
-	
 
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
 }

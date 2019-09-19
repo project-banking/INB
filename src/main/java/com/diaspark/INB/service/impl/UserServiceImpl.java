@@ -1,19 +1,19 @@
 package com.diaspark.INB.service.impl;
 
-import com.diaspark.INB.DTO.ContactUsDTO;
-import com.diaspark.INB.DTO.EmailResponseDTO;
-import com.diaspark.INB.DTO.LoginUserDTO;
-import com.diaspark.INB.DTO.RegisterUserDTO;
-import com.diaspark.INB.DTO.UserAccountDto;
-import com.diaspark.INB.DTO.UserResponseDTO;
+import com.diaspark.INB.DTO.*;
 import com.diaspark.INB.config.JwtTokenProvider;
+import com.diaspark.INB.entity.TransactionType;
 import com.diaspark.INB.entity.User;
 import com.diaspark.INB.entity.UserAccount;
 import com.diaspark.INB.entity.UserPrincipal;
+import com.diaspark.INB.entity.UserStatus;
+import com.diaspark.INB.entity.UserTransaction;
+import com.diaspark.INB.exception.EmailSendException;
 import com.diaspark.INB.exception.ForbiddenException;
 import com.diaspark.INB.exception.NotFoundException;
 import com.diaspark.INB.repository.UserAccountRepository;
 import com.diaspark.INB.repository.UserRepository;
+import com.diaspark.INB.repository.UserTransactionRepository;
 import com.diaspark.INB.service.ContactUsMailService;
 import com.diaspark.INB.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +23,9 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 
 
 @Service
@@ -37,12 +35,17 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Autowired
     private UserAccountRepository userAccountRepository;
+    @Autowired
+    private UserTransactionRepository userTransactionRepository;
 
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
     @Autowired
     HttpServletResponse httpServletResponse;
+
+    @Autowired
+    private ContactUsMailService notificationService;
 
     @Value("${app.jwtExpirationInMs}")
     private int jwtExpirationInMs;
@@ -64,7 +67,6 @@ public class UserServiceImpl implements UserService {
         newUser.setPassword(registerUserDTO.getPassword());
         newUser.setFirstName(registerUserDTO.getFirstName());
         newUser.setLastName(registerUserDTO.getLastName());
-        newUser.setAccountType(registerUserDTO.getAccountType());
         newUser.setAddressLine1(registerUserDTO.getAddressLine1());
         newUser.setAddressLine2(registerUserDTO.getAddressLine2());
         newUser.setAddressLine3(registerUserDTO.getAddressLine3());
@@ -75,14 +77,21 @@ public class UserServiceImpl implements UserService {
         newUser.setCity(registerUserDTO.getCity());
         newUser.setPhone(registerUserDTO.getPhone());
         newUser.setUsername(registerUserDTO.getUsername());
-        //newUser.setStatus("Pending");
+        newUser.setStatus(UserStatus.PENDING.getStatus());
         return newUser;
-    }
+    }   
+    
+    public void requestMoney(TransactionDTO userTransaction) {
+    	proceedTransaction(userTransaction);
+	}
+    
+   
+   
 
     @Override
     public UserResponseDTO authenticateUser(LoginUserDTO loginUserDTO) throws Exception {
         User existingUser = userRepository.findUserByUsername(loginUserDTO.getUsername());
-        if (existingUser == null || !existingUser.getPassword().equals(loginUserDTO.getPassword())) {
+        if (existingUser == null || (!existingUser.getPassword().equals(loginUserDTO.getPassword()) && !UserStatus.APPROVED.getStatus().equals(existingUser.getStatus()))) {
             throw new ForbiddenException("username or password is incorrect");
         }
 
@@ -92,31 +101,17 @@ public class UserServiceImpl implements UserService {
         //Generating JWT token
         String token = jwtTokenProvider.generateToken(userPrincipal);
 
-        //building UserResponse Dto to send json back to client
-        UserResponseDTO userResponseDTO = new UserResponseDTO();
-        userResponseDTO.setFirstName(existingUser.getFirstName());
-        userResponseDTO.setLastName(existingUser.getLastName());
-        userResponseDTO.setCity(existingUser.getCity());
-        userResponseDTO.setEmail(existingUser.getEmail());
-        userResponseDTO.setToken(token);
-        userResponseDTO.setPhone(existingUser.getPhone());
-        userResponseDTO.setAddressLine1(existingUser.getAddressLine1());
-        userResponseDTO.setAddressLine2(existingUser.getAddressLine2());
-        userResponseDTO.setAddressLine3(existingUser.getAddressLine3());
-        userResponseDTO.setZip(existingUser.getZip());
-        userResponseDTO.setMobile(existingUser.getCell());
-        userResponseDTO.setUsername(existingUser.getUsername());
-        userResponseDTO.setCustomerId(existingUser.getCustomerId());
-     
+        //building UserResponse Dto to sendQuery json back to client
+        UserResponseDTO userResponseDTO = buildUserResponseDTO(existingUser);
+           userResponseDTO.setToken(token);
         //adding token to cookie
         httpServletResponse.addCookie(buildCookies("X-AUTH-TOKEN", token));
-
         return userResponseDTO;
     }
 
     private UserPrincipal buildUserPrincipal(User user) throws Exception {
         Date now = new Date();
-        
+
         Date expiryDate = new Date(now.getTime() + jwtExpirationInMs);
 
         UserPrincipal userPrincipal = new UserPrincipal();
@@ -157,45 +152,146 @@ public class UserServiceImpl implements UserService {
         userAccount.setUser(user);
         userAccountRepository.save(userAccount);
     }
-    @Autowired
-	private ContactUsMailService notificationService;
-        public EmailResponseDTO send( ContactUsDTO contactUsDTO) {
-        	EmailResponseDTO emailResponseDTO=new EmailResponseDTO();
-        	emailResponseDTO.setContactUsResponse("Email sent Succesfully");
-        
 
-    		/*
-    		 * Creating a User with the help of User class that we have declared and setting
-    		 * Email address of the sender.
-    		 */
-    		contactUsDTO.setEmail("IndianNetBank3A@gmail.com");  //Receiver's email address
-    		/*
-    		 * Here we will call sendEmail() for Sending mail to the sender.
-    		 */
-    		try {
-    			notificationService.sendEmail( contactUsDTO);
-    		} catch (MailException mailException) {
-    			System.out.println(mailException);
-    		}
-    		return emailResponseDTO;
+    public EmailResponseDTO sendQuery(SendMailDTO sendMailDTO) {
+        /*
+         * Creating a User with the help of User class that we have declared and setting
+         * Email address of the sender.
+         */
+        sendMailDTO.setToAddress("IndianNetBank3A@gmail.com");  //Receiver's email address
+        sendMailDTO.setSubject(sendMailDTO.getFirstName() + " " + sendMailDTO.getLastName() + " has following query");
+        /*
+         * Here we will call sendEmail() for Sending mail to the sender.
+         */
+        EmailResponseDTO emailResponseDTO = new EmailResponseDTO();
+        try {
+            notificationService.sendEmail(sendMailDTO);
+            emailResponseDTO.setContactUsResponse("Email sent Succesfully");
+        } catch (MailException mailException) {
+            throw new EmailSendException("Failed to send email");
+        }
+        return emailResponseDTO;
+
+    }
+ 
+    @Override
+    public List<UserResponseDTO> retreiveUsersName(String status) {
+
+        //Validate if incoming status is a valid status
+        UserStatus.findCodeByStatus(status);
+        List<UserResponseDTO> userNames = new ArrayList<>();
+
+        //Search users by status
+        List<User> userList = userRepository.findUserByStatus(status);
+        for (User user : userList) { //for each loop/ how to use this in java 8
+            UserResponseDTO userResponseDTO = buildUserResponseDTO(user);
+            userNames.add(userResponseDTO);
+        }
+        return userNames;
+
+    }
+
+    @Override
+    public UserResponseDTO updateUserStatus(long customerId, String status) {
+        //Validate if incoming status is a valid status
+        UserStatus.findCodeByStatus(status);
+
+        //Find existingUser which need to be updated
+        User existingUser = userRepository.findUserById(customerId);
+        if (existingUser == null) {
+            throw new NotFoundException("Customer Id is invalid");
+        }
+        existingUser.setStatus(status);
+        //update user with new status
+        User savedUser = userRepository.save(existingUser);
+        sendMailIfApproved(savedUser);
+        sendMailIfRejected(savedUser);
+        return buildUserResponseDTO(savedUser);
+    }
+    
+    public UserTransaction proceedTransaction(TransactionDTO userTransaction) {
     	
+    	//UserAccountDto userAccountDto=new UserAccountDto();
+    	UserTransaction userTransactionn=new UserTransaction();
+    	
+    	//TransactionType.findCodeByTransType(transactionDTO.getTransType());
+    	
+    	
+    long sourceAccount=	userTransaction.getSourceAccount();
+    //double amount=transactionDTO.getAmount();
+    long targetAccount=userTransaction.getTargetAccount();
+    
+    //userAccountDto.getAccountBalance();
+    if(sourceAccount==targetAccount)
+    {
+    	   userTransactionn.setStatus(UserStatus.PENDING.getStatus());
+    	   userTransactionn.setAmount(userTransaction.getAmount());
+    	   userTransactionn.setDate(userTransaction.getDate());
+    	   //Retreive User Account by account Number
+    	   userTransactionn.setSourceAccount(userAccountRepository.findByAccountNumber(sourceAccount));
+    	   userTransactionn.setTargetAccount(userAccountRepository.findByAccountNumber(targetAccount));
+    	   userTransactionn.setTransType(userTransaction.getTransType());
+    	   return userTransactionRepository.save(userTransactionn);
+    }
+    	
+    	return null;
+    }
+
+    private UserResponseDTO buildUserResponseDTO(User user) {
+        UserResponseDTO userResponseDTO = new UserResponseDTO();
+        userResponseDTO.setFirstName(user.getFirstName());
+        userResponseDTO.setLastName(user.getLastName());
+        userResponseDTO.setCity(user.getCity());
+        userResponseDTO.setEmail(user.getEmail());
+        userResponseDTO.setPhone(user.getPhone());
+        userResponseDTO.setAddressLine1(user.getAddressLine1());
+        userResponseDTO.setAddressLine2(user.getAddressLine2());
+        userResponseDTO.setAddressLine3(user.getAddressLine3());
+        userResponseDTO.setZip(user.getZip());
+        userResponseDTO.setMobile(user.getCell());
+        userResponseDTO.setUsername(user.getUsername());
+        userResponseDTO.setCustomerId(user.getCustomerId());
+        userResponseDTO.setStatus(user.getStatus());
+        userResponseDTO.setState(user.getState());
+        userResponseDTO.setAddressLine2(user.getAddressLine2());
+       userResponseDTO.setAddressLine3(user.getAddressLine3());
+          return userResponseDTO;
+    }
+
+    private void sendMailIfApproved(User user) {
+        if (UserStatus.APPROVED.getStatus().equals(user.getStatus())) {
+            SendMailDTO sendMailDTO = new SendMailDTO();
+            sendMailDTO.setToAddress(user.getEmail());
+            sendMailDTO.setSubject("Your account is activated");
+            sendMailDTO.setQueries("Dear Customer, you account has been successfully validated" +"" +"with username" + sendMailDTO.getUsername() + " " +  "Login to use INB services.");
+            notificationService.sendEmail(sendMailDTO);
+        }}
+        private void sendMailIfRejected(User user)
+        {
+        	if(UserStatus.REJECTED.getStatus().equals(user.getStatus())) {
+        		SendMailDTO sendMailDTO=new SendMailDTO();
+        		sendMailDTO.setToAddress(user.getEmail());
+                sendMailDTO.setSubject("Your account is rejected");
+                sendMailDTO.setQueries("Dear Customer, your account is not being created due to some error. We are very sorry for the inconvinience.");
+                notificationService.sendEmail(sendMailDTO);
+        		
+        	}
+        }      	
+
+   
+
+
+    public void getAccountsByCustomer(long customerId){
+        //Find existingUser which need to be updated
+        User existingUser = userRepository.findUserById(customerId);
+        if (existingUser == null) {
+            throw new NotFoundException("Customer Id is invalid");
         }
 
-		@Override
-		public List<String> retreiveUsersName() {
+        List<UserAccount> userAccountList = userAccountRepository.findUserAccountByUser(existingUser);  
+    }
 
-			List<String> userNames = new  ArrayList<String>();
-			List<User> userList = userRepository.findAll();
-			String userName = null;
-			//userName1 = null;
-			for(User user : userList ) { //for each loop/ how to use this in java 8
-				userName = user.getUsername();
-				
-				userNames.add(userName);
-				//userName1=user.getPassword();
-				//userNames.add(userName1);
-			}
 
-			return userNames;
-		
-		}}
+
+	
+}

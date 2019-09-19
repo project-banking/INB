@@ -1,28 +1,26 @@
 package com.diaspark.INB.service;
 
-import java.util.List;
+import com.diaspark.INB.DTO.*;
+import com.diaspark.INB.entity.UserAccount;
+import com.diaspark.INB.entity.UserTransaction;
 
-import com.diaspark.INB.DTO.ContactUsDTO;
-import com.diaspark.INB.DTO.EmailResponseDTO;
-import com.diaspark.INB.DTO.LoginUserDTO;
-import com.diaspark.INB.DTO.RegisterUserDTO;
-import com.diaspark.INB.DTO.UserAccountDto;
-import com.diaspark.INB.DTO.UserResponseDTO;
-import com.diaspark.INB.entity.User;
+import java.util.List;
 
 
 public interface UserService {
     void registerUser(RegisterUserDTO registerUserDTO);
+
     UserResponseDTO authenticateUser(LoginUserDTO loginUserDTO) throws Exception;
-   // UserAccount createAccount(UserAccountDto userAccountDto);
-	public void saveAccount(UserAccountDto userAccountDto);
-	public EmailResponseDTO send(ContactUsDTO contactUsDTO);
-	public List<String> retreiveUsersName(); 
-	     
-	
-	
-	
 
+    void saveAccount(UserAccountDto userAccountDto);
 
+    EmailResponseDTO sendQuery(SendMailDTO sendMailDTO);
+
+    List<UserResponseDTO> retreiveUsersName(String status);
+
+    UserResponseDTO updateUserStatus(long customerId, String status);
+
+    public void requestMoney(TransactionDTO userTransaction);
     
+	//public UserTransaction proceedTransaction(String transType);
 }

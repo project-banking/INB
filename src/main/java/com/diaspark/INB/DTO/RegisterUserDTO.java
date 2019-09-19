@@ -42,15 +42,15 @@ public class RegisterUserDTO {
 	@NotEmpty(message="Please provide your zipcode")
 	private int zip;
 
-	private int phone;
+	private String phone;
 
 	@NotEmpty(message="Please provide your mobile number")
-	private int mobile;
+	private String mobile;
 
 	@NotEmpty(message="Please provide your email")
 	private String email;
 	private int accountType;
-	private boolean isApproved;
+	
 
 	public String getFirstName() {
 		return firstName;
@@ -124,19 +124,19 @@ public class RegisterUserDTO {
 		this.zip = zip;
 	}
 
-	public int getPhone() {
+	public String getPhone() {
 		return phone;
 	}
 
-	public void setPhone(int phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 
-	public int getMobile() {
+	public String getMobile() {
 		return mobile;
 	}
 
-	public void setMobile(int mobile) {
+	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
 
@@ -156,12 +156,6 @@ public class RegisterUserDTO {
 		this.accountType = accountType;
 	}
 
-	public boolean isApproved() {
-		return isApproved;
-	}
-
-	public void setApproved(boolean approved) {
-		isApproved = approved;
-	}
+	
 }
 

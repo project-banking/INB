@@ -6,7 +6,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import com.diaspark.INB.DTO.ContactUsDTO;
+import com.diaspark.INB.DTO.SendMailDTO;
 
 @Service
 public class ContactUsMailService {
@@ -15,14 +15,14 @@ public class ContactUsMailService {
 	public void MailService(JavaMailSender javaMailSender) {
 		this.javaMailSender = javaMailSender;
 	}
-	public void sendEmail(ContactUsDTO contactUsDTO) throws MappingException {
+	public void sendEmail(SendMailDTO sendMailDTO) throws MappingException {
 		SimpleMailMessage mail = new SimpleMailMessage();
-		mail.setTo(contactUsDTO.getEmail());
-		mail.setSubject(contactUsDTO.getFirstName() + " " +contactUsDTO.getLastName() + " has following query");
-		mail.setText(contactUsDTO.getQueries());
+		mail.setTo(sendMailDTO.getToAddress());
+		mail.setSubject(sendMailDTO.getSubject());
+		mail.setText(sendMailDTO.getQueries());
 
 		/*
-		 * This send() contains an Object of SimpleMailMessage as an Parameter
+		 * This sendQuery() contains an Object of SimpleMailMessage as an Parameter
 		 */
 		javaMailSender.send(mail);
 	}
