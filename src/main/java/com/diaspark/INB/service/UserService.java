@@ -1,10 +1,14 @@
 package com.diaspark.INB.service;
 
-import com.diaspark.INB.DTO.*;
-import com.diaspark.INB.entity.UserAccount;
-import com.diaspark.INB.entity.UserTransaction;
-
 import java.util.List;
+
+import com.diaspark.INB.DTO.EmailResponseDTO;
+import com.diaspark.INB.DTO.LoginUserDTO;
+import com.diaspark.INB.DTO.RegisterUserDTO;
+import com.diaspark.INB.DTO.SendMailDTO;
+import com.diaspark.INB.DTO.TransactionDTO;
+import com.diaspark.INB.DTO.UserAccountDto;
+import com.diaspark.INB.DTO.UserResponseDTO;
 
 
 public interface UserService {
@@ -20,7 +24,10 @@ public interface UserService {
 
     UserResponseDTO updateUserStatus(long customerId, String status);
 
-    public void requestMoney(TransactionDTO userTransaction);
+     void requestMoney(TransactionDTO userTransaction);
+
+	void updateTransactionStatus(String status);
+	
     
 	//public UserTransaction proceedTransaction(String transType);
 }

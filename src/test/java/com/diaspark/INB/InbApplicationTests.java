@@ -11,6 +11,7 @@ public class InbApplicationTests {
 
 	@Test
 	public void contextLoads() {
+		
 	}
 
 }
