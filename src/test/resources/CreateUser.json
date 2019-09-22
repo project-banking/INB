@@ -1,0 +1,39 @@
+Registration-post
+http://localhost:8080/user/registration
+{	
+	"firstName": "Prachi",
+	"lastName": "Bhardwaj",
+	"username": "prachi",
+	"password": "password",
+	"addressLine1": "Indore",
+	"city": "Ujjain",
+	"state": "M.P",
+	"zip": 490002,
+	"phone": 1234567890,
+	"email": "prachi@gmail.com"
+}
+User Login-post
+http://localhost:8080/user/login
+{
+  "username":"prachi",
+  "password":"password"
+}
+Contact us-post
+http://localhost:8080/user/contact-us
+{ "username":"eshdsrsdrf"",
+"firstName":"Ayushijkljkljlkjl",
+"lastName":"Bhardwajnjkkjk",
+"queries":"ACCount opening problmgygyu"
+}
+Request to add money to admin-     post
+http://localhost:8080/user/requestMoney
+{	
+	"accountNumber":1,
+	"amount":200
+}
+get the list of pending request money list-----get
+http://localhost:8080/user//fetch/addMoney?status=approved
+
+admin chnge status from pending to approve for adding money-----      put
+http://localhost:8080/user/update/transactionstatus/approved
+

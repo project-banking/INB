@@ -11,14 +11,20 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+
+
+
 @Entity
 @Table(name = "user_transaction")
 public class UserTransaction {
 
 	@ManyToOne
 	@JoinColumn(name = "source_account", referencedColumnName = "account_number")
+    
 	private UserAccount sourceAccount;
 
+	
 	public UserAccount getSourceAccount() {
 		return sourceAccount;
 	}
@@ -37,6 +43,8 @@ public class UserTransaction {
 
 	@ManyToOne
 	@JoinColumn(name = "target_account", referencedColumnName = "account_number")
+    
+
 	private UserAccount targetAccount;
 
 	@Id

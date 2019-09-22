@@ -200,16 +200,16 @@ List<UserAccount> userAccountList = userAccountRepository.findUserAccountByUser(
 	}
 	@Override
 	public List<TransactionResponseDTO> retrievePendingTransactions(String status) {
-		/*UserStatus.findCodeByStatus(status);
-		List<TransactionResponseDTO> requestMoneyNames=new ArrayList<>();
-		List<UserTransaction>requestList=userTransactionRepository.findUserTransactionByStatus(status);
+		UserStatus.findCodeByStatus(status);
+		List<TransactionResponseDTO> requestMoneyUsers=new ArrayList<>();
+		List<UserTransaction> requestList=userTransactionRepository.findUserTransactionByStatus(status);
 		
-		for (UserTransaction userTrasaction :requestList) {
-			TransactionResponseDTO transactionResponseDTO=new TransactionResponseDTO(userTransaction);
-		}*/
+		for (UserTransaction userTransaction : requestList) {
+			TransactionResponseDTO transactionResponseDTO=buildTransactionResponseDTO(userTransaction);
+			requestMoneyUsers.add(transactionResponseDTO);
+		}
 		
-
-		return null;
+        return requestMoneyUsers;
 	}
 
 	@Override
@@ -259,15 +259,11 @@ List<UserAccount> userAccountList = userAccountRepository.findUserAccountByUser(
 		userTransactionRepository.save(userTransactionn);
 
 		if (sourceAccountNo != targetAccountNo && sourceAccount.getAccountBalance() >= userTransactionn.getAmount()) {
-
-			// UserAccount
-			// userAccount=userAccountRepository.findByAccountNumber(sourceAccountNo);
-
-			sourceAccount.setAccountBalance(sourceAccount.getAccountBalance() - userTransactionn.getAmount());
+			
+	sourceAccount.setAccountBalance(sourceAccount.getAccountBalance() - userTransactionn.getAmount());
 
 		}
-		// UserAccount
-		// userAccount=userAccountRepository.findByAccountNumber(targetAccountNo);
+	
 		targetAccount.setAccountBalance(targetAccount.getAccountBalance() + userTransactionn.getAmount());
 
 		// userTransactionRepository.save(userAccount);
@@ -276,6 +272,18 @@ List<UserAccount> userAccountList = userAccountRepository.findUserAccountByUser(
 
 		return userTransactionRepository.save(userTransactionn);
 	}
+	private TransactionResponseDTO buildTransactionResponseDTO(UserTransaction userTransaction) {
+		TransactionResponseDTO transactionResponseDTO=new TransactionResponseDTO();
+		transactionResponseDTO.setAmount(userTransaction.getAmount());
+		transactionResponseDTO.setSourceAccount(userTransaction.getSourceAccount());
+		transactionResponseDTO.setTransId(userTransaction.getTransId());
+		transactionResponseDTO.setStatus(userTransaction.getStatus());
+		transactionResponseDTO.setTargetAccount(userTransaction.getTargetAccount());
+		transactionResponseDTO.setDate(userTransaction.getDate());
+		transactionResponseDTO.setTransId(userTransaction.getTransId());
+		return transactionResponseDTO;
+
+	  }
 
 	private UserResponseDTO buildUserResponseDTO(User user) {
 		UserResponseDTO userResponseDTO = new UserResponseDTO();

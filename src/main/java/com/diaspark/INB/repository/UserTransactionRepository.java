@@ -13,5 +13,5 @@ import com.diaspark.INB.entity.UserTransaction;
 public interface UserTransactionRepository extends JpaRepository<UserTransaction, Long> {
     List<UserTransaction> findUserTransactionBySourceAccount(UserAccount userAccount);
     
-    List <UserTransaction>findUserTransactionByStatus(@Param("status") String status);
+    List <UserTransaction>findUserTransactionByStatus(String status);
 }

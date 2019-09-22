@@ -14,7 +14,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonManagedReference;
+
 import com.diaspark.INB.DTO.AccountResponseDTO;
+
 
 @Entity
 @Table(name="account")
@@ -33,6 +36,7 @@ public class UserAccount {
 	}
 	
 	@OneToMany(mappedBy="sourceAccount")
+	
 	private Set<UserTransaction> userTransaction; 
 	
 	
