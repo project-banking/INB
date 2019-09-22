@@ -2,13 +2,17 @@ package com.diaspark.INB.service;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.diaspark.INB.DTO.EmailResponseDTO;
 import com.diaspark.INB.DTO.LoginUserDTO;
 import com.diaspark.INB.DTO.RegisterUserDTO;
 import com.diaspark.INB.DTO.SendMailDTO;
 import com.diaspark.INB.DTO.TransactionDTO;
+import com.diaspark.INB.DTO.TransactionResponseDTO;
 import com.diaspark.INB.DTO.UserAccountDto;
 import com.diaspark.INB.DTO.UserResponseDTO;
+
 
 
 public interface UserService {
@@ -27,6 +31,8 @@ public interface UserService {
      void requestMoney(TransactionDTO userTransaction);
 
 	void updateTransactionStatus(String status);
+   List<TransactionResponseDTO> retrievePendingTransactions( String status);
+
 	
     
 	//public UserTransaction proceedTransaction(String transType);

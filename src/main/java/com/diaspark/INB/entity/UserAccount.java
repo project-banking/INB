@@ -1,5 +1,6 @@
 package com.diaspark.INB.entity;
 
+import java.util.List;
 import java.util.Set;
 
 //import javax.persistence.CascadeType;
@@ -12,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.diaspark.INB.DTO.AccountResponseDTO;
 
 @Entity
 @Table(name="account")
@@ -39,6 +42,7 @@ public class UserAccount {
 	public void setUserTransaction(Set<UserTransaction> userTransaction) {
 		this.userTransaction = userTransaction;
 	}
+
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -68,11 +72,4 @@ public class UserAccount {
 	public void setAccountType(int accountType) {
 		this.accountType = accountType;
 	}
-	
-	
-	
-	
-	
-	
-
 }

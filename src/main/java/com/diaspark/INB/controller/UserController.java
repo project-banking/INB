@@ -18,6 +18,7 @@ import com.diaspark.INB.DTO.LoginUserDTO;
 import com.diaspark.INB.DTO.RegisterUserDTO;
 import com.diaspark.INB.DTO.SendMailDTO;
 import com.diaspark.INB.DTO.TransactionDTO;
+import com.diaspark.INB.DTO.TransactionResponseDTO;
 import com.diaspark.INB.DTO.UserAccountDto;
 import com.diaspark.INB.DTO.UserResponseDTO;
 import com.diaspark.INB.service.UserService;
@@ -63,7 +64,10 @@ public class UserController {
     public List<UserResponseDTO> retrieveUsersName(@RequestParam String status) {
         return userService.retreiveUsersName(status);
     }
-
+    @GetMapping("/fetch/addMoney")
+    public List<TransactionResponseDTO> retrievePendingTransactions(@RequestParam String status){
+    	return userService.retrievePendingTransactions(status);
+    }
     /*
      * http://localhost:8080/user/update/status/1?status=approved
      */

@@ -1,5 +1,7 @@
 package com.diaspark.INB.DTO;
 
+import java.util.List;
+
 /*
   DTO class sent as a response back to client - UI
  */
@@ -19,8 +21,17 @@ public class UserResponseDTO {
     private String mobile;
     private String email;
     private String status;
+    private List<AccountResponseDTO> accountResponseDTO;
 
-    public String getStatus() {
+    public List<AccountResponseDTO> getAccountResponseDTO() {
+		return accountResponseDTO;
+	}
+
+	public void setAccountResponseDTO(List<AccountResponseDTO> accountResponseDTO) {
+		this.accountResponseDTO = accountResponseDTO;
+	}
+
+	public String getStatus() {
         return status;
     }
 

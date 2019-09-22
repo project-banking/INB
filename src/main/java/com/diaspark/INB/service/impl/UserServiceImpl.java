@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
 	public void registerUser(RegisterUserDTO registerUserDTO) {
 		User newUser = createRegisterUser(registerUserDTO);
 		User saveuser = userRepository.save(newUser);
-		UserAccount userAccount = createAccount(registerUserDTO, saveuser);
+	UserAccount userAccount = createAccount(registerUserDTO, saveuser);
 		userAccountRepository.save(userAccount);
 	}
 
@@ -97,10 +97,20 @@ public class UserServiceImpl implements UserService {
 
 		// Generating JWT token
 		String token = jwtTokenProvider.generateToken(userPrincipal);
-
+List<AccountResponseDTO> accountResponses= new ArrayList<>();
+List<UserAccount> userAccountList = userAccountRepository.findUserAccountByUser(existingUser);
+		for(UserAccount userAccount: userAccountList ) {
+			AccountResponseDTO accountResponseDTO= new AccountResponseDTO();
+			accountResponseDTO.setBalance(userAccount.getAccountBalance());
+			accountResponseDTO.setAccountType(userAccount.getAccountType());
+			accountResponseDTO.setAccountNumber(userAccount.getAccountNumber());
+			accountResponses.add(accountResponseDTO);
+			}
+		
 		// building UserResponse Dto to sendQuery json back to client
 		UserResponseDTO userResponseDTO = buildUserResponseDTO(existingUser);
 		userResponseDTO.setToken(token);
+		userResponseDTO.setAccountResponseDTO(accountResponses);
 		// adding token to cookie
 		httpServletResponse.addCookie(buildCookies("X-AUTH-TOKEN", token));
 		return userResponseDTO;
@@ -167,6 +177,7 @@ public class UserServiceImpl implements UserService {
 		} catch (MailException mailException) {
 			throw new EmailSendException("Failed to send email");
 		}
+		
 		return emailResponseDTO;
 
 	}
@@ -186,6 +197,19 @@ public class UserServiceImpl implements UserService {
 		}
 		return userNames;
 
+	}
+	@Override
+	public List<TransactionResponseDTO> retrievePendingTransactions(String status) {
+		/*UserStatus.findCodeByStatus(status);
+		List<TransactionResponseDTO> requestMoneyNames=new ArrayList<>();
+		List<UserTransaction>requestList=userTransactionRepository.findUserTransactionByStatus(status);
+		
+		for (UserTransaction userTrasaction :requestList) {
+			TransactionResponseDTO transactionResponseDTO=new TransactionResponseDTO(userTransaction);
+		}*/
+		
+
+		return null;
 	}
 
 	@Override
@@ -276,6 +300,7 @@ public class UserServiceImpl implements UserService {
 
 	private void sendMailIfApproved(User user) {
 		if (UserStatus.APPROVED.getStatus().equals(user.getStatus())) {
+			
 			SendMailDTO sendMailDTO = new SendMailDTO();
 			sendMailDTO.setToAddress(user.getEmail());
 			sendMailDTO.setSubject("Your account is activated");
@@ -326,4 +351,6 @@ public class UserServiceImpl implements UserService {
 			}
 		}
 	}
+
+	
 }
