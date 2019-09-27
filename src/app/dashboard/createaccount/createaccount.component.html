@@ -1,0 +1,46 @@
+<br>
+<br>
+
+  <div class="container">
+      <div class="p-4 mb-3 bg-info text-center font-weight-bold"><h2>Add Account</h2>   
+      </div>
+      <br>
+<form  [formGroup]= "createaccount" (ngSubmit)="onSubmitaddmoney()" >
+    <div class="form-group">
+      <label for="customerid"><h3><b>Customer Id</b></h3></label>
+      <input type="number" class="form-control" id="customerid" aria-describedby="SourceAccount" formControlName='customerId' placeholder="Enter Your Account NUmber" [ngClass]="{ 'is-invalid': submitted && f.customerId?.errors }">
+      <small id="customerid" class="form-text text-muted"><h5>We'll never share your accountNo with anyone else.</h5></small>
+      <div *ngIf="submitted && f.customerId?.errors" class="invalid-feedback">
+       
+        <div *ngIf="f.customerId.errors?.required">customerId is required</div>
+      </div>
+    </div>
+    <br>
+    <!-- <div class="form-group">
+      <label for="TargetAccount">Target AccountNo</label>
+      <input type="TargetAccount" class="form-control" id="TargetAccount" placeholder="Enter Target Account Number">
+    </div> -->
+    <div class="form-group">
+        <label for="accounttype"><h3><b>Account Type</b></h3></label>
+        <input type="Amount" class="form-control" id="accounttype" formControlName='accountType' placeholder="Please enter the Amount" [ngClass]="{ 'is-invalid': submitted && f.accountType?.errors }">
+        <div *ngIf="submitted && f.accountType?.errors" class="invalid-feedback">
+       
+          <div *ngIf="f.accountType.errors?.required">accountType is required</div>
+        </div>
+      </div><br>
+      <div class="form-group">
+        <h5>
+          <input type="submit" class="btn-info" value="Add account" /></h5>
+      </div>
+
+    </form>
+    </div>
+    <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+

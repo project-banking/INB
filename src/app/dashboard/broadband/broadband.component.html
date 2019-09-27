@@ -1,0 +1,83 @@
+<br>
+<br>
+<div class="container">
+
+    <div class="p-4 mb-3 bg-info text-center font-weight-bold "><h2>Broadband</h2>   
+    </div>
+    <h3 class="text-secondary">Service Provider</h3>
+    <select class="form-control form-control-lg" (change)='getServiceProviders($event)'>
+        <option class="text-secondary">Connect BroadBand</option>
+        <option class="text-secondary">Jio</option>
+        <option class="text-secondary">Comway BroadBand</option>
+        <option class="text-secondary">Airtel</option>
+        <option class="text-secondary">BSNL</option>
+
+</select>
+<br>
+<form [formGroup]="broadband">
+<h3 class="text-secondary">Plans</h3>
+<select class="form-control form-control-lg" (change)='getPlans($event)' formControlName="amount" [ngClass]="{ 'is-invalid': submitted && f.amount?.errors }">
+  <option class="text-secondary">129</option><option><h1>-FREE CALL+2GB 28D</h1></option>
+  <option class="text-secondary">45</option><option>-45TT+1p/sec+100MB 28D></option>
+  <option class="text-secondary">399</option><option>-FREE CALL+1GB/DAY 84D</option>
+  <option class="text-secondary">450</option><option>-FREE CALL+1.5GB/DAY 84D</option>
+  <option class="text-secondary">45 </option><option>-45 TT+1p/sec+100MB 28D</option>
+
+</select>
+<div *ngIf="submitted && f.amount?.errors" class="invalid-feedback">
+       
+  <div *ngIf="f.amount.errors?.required">amount is required</div>
+</div>
+
+  <h3 class="text-secondary">Account Number</h3>
+  <input type="number" class="form-control" id="accountNumber" formControlName="sourceAccountNo" [ngClass]="{ 'is-invalid': submitted && f.sourceAccountNo?.errors }">
+<br>
+<div *ngIf="submitted && f.sourceAccountNo?.errors" class="invalid-feedback">
+       
+  <div *ngIf="f.sourceAccountNo.errors?.required">sourceAccountNo is required</div>
+</div>
+</form>
+<h3 class="text-secondary">Telephone Number</h3>
+<input type="number" class="form-control" id="accountNumber" (change)='getTelephoneNumber($event)'>
+<br>
+
+
+<br>
+<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
+    <h3>Selected Plan</h3>
+   </button>
+ 
+   <!-- The Modal -->
+   <div class="modal fade" id="myModal">
+     <div class="modal-dialog">
+       <div class="modal-content">
+       
+         <!-- Modal Header -->
+         <div class="modal-header">
+           <h5 class="modal-title"><p class="text-center">Selected Data Plan</p></h5>
+           <button type="button" class="close" data-dismiss="modal">&times;</button>
+         </div>
+         
+         <!-- Modal body -->
+         <div class="modal-body">
+                  <h3 class="text-secondary">ServiceProvider: {{ serviceProvider }}</h3>
+                 <h3 class="text-secondary">TelephoneNumber: {{ telephoneNumber }}</h3>
+                 <h3 class="text-secondary">Amount to pay: {{ plans }}</h3>
+         </div>
+         
+         <!-- Modal footer -->
+         <div class="modal-footer">
+           <button type="button" class="btn btn-info" data-dismiss="modal" (click)="submit()">Proceed To Pay</button>
+           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+         </div>
+         
+       </div>
+     </div>
+   </div>
+
+<br>
+
+             
+    
+</div>
+<br>

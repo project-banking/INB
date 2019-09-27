@@ -1,0 +1,51 @@
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+          <a class="navbar-brand" routerLink="" routerLinkActive="router-link-active" >User Dashboard</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+            
+            </ul>
+            <ul class="navbar-nav mt-2 mt-md-0">
+                <li class="nav-item active">
+                    <a routerLink="addmoney" class="nav-link" routerLinkActive="active">Add Money</a>
+                </li>
+                <li class="nav-item active">
+                  <a routerLink="createaccount" class="nav-link" routerLinkActive="active">Add Account</a>
+              </li>
+              
+                      <li class="nav-item active dropdown">
+                          <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Bill Payment</a>
+                          <div class="dropdown-menu" aria-labelledby="dropdown01">
+                            <a class="dropdown-item" routerLink="billpayment"  routerLinkActive="active">Electricity Bill</a>
+                            <a class="dropdown-item" routerLink="recharge"  routerLinkActive="active" >Mobile Recharge</a>
+                            <a class="dropdown-item" routerLink="broadband"  routerLinkActive="active" >BroadBand</a>
+                          </div>
+                        </li>
+                       
+                        
+                        <li class="nav-item active">
+                            <a routerLink="money-transfer" class="nav-link" routerLinkActive="active">Money Transfer</a>
+                        </li>
+                        <li class="nav-item active mr-sm-2">
+                            <a routerLink="chequedeposit" class="nav-link" routerLinkActive="active">Cheque Deposit</a><li>
+                        <li class="nav-item active">
+                            <a routerLink="contactus" class="nav-link" routerLinkActive="active">Contact us</a>
+                    </li>
+                    <li class="nav-item active dropdown">
+                      <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">My Account</a>
+                      <div class="dropdown-menu" aria-labelledby="dropdown01">
+                        <a class="dropdown-item" routerLink="profile"  routerLinkActive="active">Profile</a>
+                        <a class="dropdown-item" routerLink="accountdetails"  routerLinkActive="active">Account Details</a>
+                        <a class="dropdown-item" routerLink="alltransaction"  routerLinkActive="active">Account Summary</a>
+                        <a class="dropdown-item" routerLink="ministatement"  routerLinkActive="active">Mini Transactions</a>
+                      </div>
+                    </li>
+                    
+              <li class="nav-item active mr-sm-2"> <a class="nav-link" (click)="onClickMe()">Logout</a></li>
+            </ul>
+          </div>
+        </nav>
+
+

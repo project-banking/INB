@@ -1,0 +1,62 @@
+
+
+<div class="container login-container">
+            <div class="row">
+                <div class="col-md-6 login-form-1">
+                    <h3>Customer</h3>
+                    <form  [formGroup]= "login" (ngSubmit)="onSubmit()" >
+                        <div class="form-group">
+                            <input type="text" class="form-control" formControlName='username' placeholder="Your Username *" value="" [ngClass]="{ 'is-invalid': submitted && f.username?.errors }"/>
+                            <div *ngIf="submitted && f.username?.errors" class="invalid-feedback">
+                                <div *ngIf="f.username.errors?.required">Username is required</div>
+                            </div>
+                        </div>
+                       
+                        <div class="form-group">
+                            <input type="password" class="form-control" formControlName='password' placeholder="Your Password *" value="" [ngClass]="{ 'is-invalid': submitted && f.username?.errors }" />
+                            <div *ngIf="submitted && f.password?.errors" class="invalid-feedback">
+                                <div *ngIf="f.password.errors?.required">Password is required</div>
+                        </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btnSubmit" value="Login" />
+                        </div>
+                        <div class="form-group">
+                            <a routerLink="user-registration" routerLinkActive="active" class="text-muted">New user registration</a>
+                        </div>
+                        
+                    </form>
+                    <div *ngIf = "showstatus" class="bg-danger text-white">Invalid username or password</div>
+                </div>
+                
+                <div class="col-md-6 login-form-2">
+                    <div class="login-logo">
+                        <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
+                    </div>
+                    <h3>Bank</h3>
+                    <form  [formGroup]= "adminlogin" (ngSubmit)="onSubmitadmin()" >
+                        <div class="form-group">
+                            <input type="text" class="form-control" formControlName='username' placeholder="Your Username *" value="" />
+                            <div *ngIf="submitted && fb.password?.errors" class="invalid-feedback">
+                                <div *ngIf="fb.password.errors?.required">Password is required</div>
+                        </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" formControlName='password' placeholder="Your Password *" value="" />
+                            <div *ngIf="submitted && fb.password?.errors" class="invalid-feedback">
+                                <div *ngIf="fb.password.errors?.required">Password is required</div>
+                        </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btnSubmit" value="Login" />
+                        </div>
+                        
+                    </form>
+                    <div *ngIf = "adminstatus" class="bg-success text-white">Invalid username or password</div>
+                </div>
+                
+                
+            </div>
+           
+        </div>
+        

@@ -1,0 +1,25 @@
+<br>
+    <div class="container">
+      <form>
+        <div class="p-4 mb-3 bg-info text-center font-weight-bold "><h3>Account Details</h3>   
+        </div>
+        <div *ngFor = "let Ac of num" >
+        <div class="form-group text-center">
+          
+          <label for="exampleInputEmail1"><b>Account Number :</b> {{ Ac.accountNumber }} </label><br>
+       
+        
+          <label for="exampleInputEmail1"><b>Balance :</b>  {{ Ac.balance }} </label><br>
+         
+ 
+          <label for="exampleInputEmail1"><b>Account Type :</b> {{ Ac.accountType }} </label><br>
+      
+       
+        <hr>
+        </div>
+    </div>
+      </form>
+    </div>
+ 
+  
+

@@ -1,0 +1,47 @@
+<div class="card-footer">  
+    <div class="col-lg-12 table-responsive">  
+        <table class="table table-striped">  
+            <thead>  
+                <tr>  
+                    <th>CustomerId</th>  
+                    <th>FirstName</th>  
+                    <th>LastName</th> 
+                    <th>Username</th>  
+                    <th>AddressLine1</th>      
+                    <th>AddressLine2</th> 
+                    <th>AddressLine3</th> 
+                    <th>City</th>
+                    <th>State</th>  
+                    <th>Zip</th> 
+                    <th>Phone</th> 
+                    <th>Mobile</th>
+                    <th>Email</th>  
+                    <th>Status</th> 
+                    <th></th>  
+                </tr>  
+            </thead>  
+            <tbody>  
+                <tr *ngFor="let users of user">  
+                    <td>{{users.customerId}}</td>  
+                    <td>{{users.firstName}}</td>  
+                    <td>{{users.lastName}}</td>  
+                    <td>{{users.username}}</td> 
+                    <td>{{users.addressLine1}}</td>  
+                    <td>{{users.addressLine2}}</td> 
+                  
+                    <td>{{users.addressLine3}}</td> 
+                    <td>{{users.city}}</td> 
+                    <td>{{users.state}}</td>  
+                    <td>{{users.zip}}</td>  
+                    <td>{{users.phone}}</td> 
+                    <td>{{users.mobile}}</td> 
+                    <td>{{users.email}}</td> 
+                    <td>{{users.status}}</td> 
+                     
+                </tr>  
+            </tbody>  
+            <button type="button" class="btn btn-danger mr-1" (click)="getallcustomer()">GetData</button>  
+
+        </table>  
+    </div>  
+</div>

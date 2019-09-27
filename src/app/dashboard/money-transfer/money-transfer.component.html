@@ -1,0 +1,48 @@
+
+<br>
+
+<br>
+<br>
+
+    <div class="container">
+      <div class="p-4 mb-3 bg-info text-center font-weight-bold "><h2 id="heading">Money Transfer</h2>   
+      </div>
+        <br>
+<form  [formGroup]= "moneytransfer" (ngSubmit)="onSubmitmoneytransfer()" >
+    <div class="form-group">
+      <label for="SourceAccount"><h4><b>Account From</b></h4></label>
+      <input type="" class="form-control" id="SourceAccount" aria-describedby="SourceAccount" formControlName='sourceAccountNo' placeholder="Enter Account Number" [ngClass]="{ 'is-invalid': submitted && f.sourceAccountNo?.errors }">
+      <small id="SourceAccount" class="form-text text-muted"><h5>We'll never share your account number with anyone else.</h5></small>
+      <div *ngIf="submitted && f.sourceAccountNo?.errors" class="invalid-feedback">
+       
+        <div *ngIf="f.sourceAccountNo.errors?.required">sourceAccountNo is required</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="TargetAccount"><h4><b>Account To</b></h4></label>
+      <input type="TargetAccount" class="form-control" id="TargetAccount" formControlName='targetAccountNo' placeholder="Enter Account Number" [ngClass]="{ 'is-invalid': submitted && f.targetAccountNo?.errors }">
+      <div *ngIf="submitted && f.targetAccountNo?.errors" class="invalid-feedback">
+        <div *ngIf="f.targetAccountNo.errors?.required">targetAccountNo is required</div>
+      </div>
+    </div>
+    <div class="form-group">
+        <label for="Amount"><h4><b>Amount</b></h4></label>
+        <input type="Amount" class="form-control" id="amount" formControlName='amount' placeholder="Please enter the Amount" [ngClass]="{ 'is-invalid': submitted && f.amount?.errors }">
+        <div *ngIf="submitted && f.amount?.errors" class="invalid-feedback">
+          <div *ngIf="f.amount.errors?.required">amount is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+          <input type="submit" class="btn-info" value= "Send Money"/>
+      </div>
+
+    </form>
+  </div>
+    <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

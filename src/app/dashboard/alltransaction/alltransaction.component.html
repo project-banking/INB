@@ -1,0 +1,36 @@
+
+
+<div class="card-footer"> 
+        <div class="col-lg-12 table-responsive"> 
+        <table class="table table-striped"> 
+        <thead> 
+        <tr> 
+        <th>TransId</th> 
+        <th>Account From</th> 
+        <th>Account To</th> 
+        <th>Amount</th> 
+        <th>Date</th> 
+        <th>Status</th> 
+        <th></th> 
+        </tr> 
+        </thead> 
+        <tbody> 
+        <tr *ngFor="let transactions of transaction"> 
+        <td>{{transactions.transId}}</td> 
+        <td>{{transactions.sourceAccount.accountNumber}}</td> 
+        <td>{{transactions.targetAccount.accountNumber}}</td> 
+        <td>{{transactions.amount}}</td> 
+        <td>{{transactions.date}}</td> 
+        <td>{{transactions.status}}</td> 
+        
+        
+        </tr> 
+        </tbody> 
+        <button type="button" class="btn btn-danger mr-1" (click)="getalltransaction(accountno)">GetData</button> 
+        
+        </table> 
+        </div> 
+        </div>
+        
+        
+        

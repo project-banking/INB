@@ -1,0 +1,125 @@
+<br>
+<div class="container">
+  <div class="text-center">
+    <div class="p-2 mb-10 btn btn-info  font-weight-bold "><h3>User Registration</h3></div></div>
+<div  style="width: 1000px;" class="align-items-center font-weight-bold">
+  <form  [formGroup]= "registration" (ngSubmit)="onSubmit()" >
+    <div class="form-group">
+      <label for="name">FirstName</label>
+      <input type="text" class="form-control" id="firstName" name="firstName"  formControlName='firstName' [ngClass]="{ 'is-invalid': submitted && f.firstName?.errors }" />
+      <div *ngIf="submitted && f.firstName?.errors" class="invalid-feedback">
+        <div *ngIf="f.firstName.errors.required">First Name is required</div>
+    </div>
+    </div>
+
+    <div class="form-group">
+      <label for="name">LastName</label>
+      <input type="text" class="form-control" id="lastName" name="lastName" formControlName='lastName' [ngClass]="{ 'is-invalid': submitted && f.lastName?.errors }" />
+    
+      <div *ngIf="submitted && f.lastName?.errors" class="invalid-feedback">
+        <div *ngIf="f.lastName.errors?.required">Last Name is required</div>
+    </div>
+    </div>
+
+    <div class="form-group">
+      <label for="name">E-mail</label>
+      <input type="email" class="form-control" id="email"  name="email" formControlName='email' [ngClass]="{ 'is-invalid': submitted && f.email?.errors }" />
+    </div>
+      <div *ngIf="submitted && f.email?.errors" class="invalid-feedback">
+          <div *ngIf="f.errors?.required">Email is required</div>
+          <div *ngIf="f.errors?.email">Email must be a valid email address</div>
+
+        
+    </div>
+    <div class="form-group">
+      <label for="name">Username</label>
+      <input type="text" class="form-control" id="username"  name="username" formControlName='username' [ngClass]="{ 'is-invalid': submitted && f.username?.errors }" />
+      <div *ngIf="submitted && f.username?.errors" class="invalid-feedback">
+        <div *ngIf="f.username.errors?.required">Username is required</div>
+    </div>
+    </div>
+
+    <div class="form-group">
+      <label for="name">Password</label>
+      <input type="text" class="form-control" id="password"  name="password" formControlName='password' [ngClass]="{ 'is-invalid': submitted && f.password?.errors }" />
+      <div *ngIf="submitted && f.password?.errors" class="invalid-feedback">
+        <div *ngIf="f.password.errors?.required">Password is required</div>
+    </div>
+    </div>
+
+    <div class="form-group">
+      <label for="name">AddressLine1</label>
+      <input type="text" class="form-control" id="addressLine1"  name="addressLine1" formControlName='addressLine1' [ngClass]="{ 'is-invalid': submitted && f.addressLine1?.errors }" />
+      <div *ngIf="submitted && f.addressLine1?.errors" class="invalid-feedback">
+        <div *ngIf="f.addressLine1.errors?.required">Address is required</div>
+    </div>
+    </div>
+
+    <div class="form-group">
+      <label for="name">AddressLine2</label>
+      <input type="text" class="form-control" id="addressLine2"  name="addressLine2" formControlName='addressLine2' [ngClass]="{ 'is-invalid': submitted && f.addressLine2.errors }" />
+      
+    </div>
+
+    <div class="form-group">
+      <label for="name">AddressLine3</label>
+      <input type="text" class="form-control" id="addressLine3"  name="addressLine3" formControlName='addressLine3' [ngClass]="{ 'is-invalid': submitted && f.addressLine3.errors }" />
+
+    </div>
+
+    <div class="form-group">
+      <label for="name">City</label>
+      <input type="text" class="form-control" id="city"  name="city" formControlName='city' [ngClass]="{ 'is-invalid': submitted && f.city?.errors }" />
+      <div *ngIf="submitted && f.city?.errors" class="invalid-feedback">
+        <div *ngIf="f.city.errors?.required">City is required</div>
+    </div>
+    </div>
+
+    <div class="form-group">
+      <label for="name">State</label>
+      <input type="text" class="form-control" id="state"  name="state" formControlName='state' [ngClass]="{ 'is-invalid': submitted && f.state.errors }" />
+      <div *ngIf="submitted && f.state.errors" class="invalid-feedback">
+        <div *ngIf="f.state.errors.required">State is required</div>
+    </div>
+    </div>
+
+    <div class="form-group">
+      <label for="name">Zip</label>
+      <input type="number" class="form-control" id="zip"  name="zip" formControlName='zip' [ngClass]="{ 'is-invalid': submitted && f.zip?.errors }" />
+      <div *ngIf="submitted && f.zip?.errors" class="invalid-feedback">
+        <div *ngIf="f.zip.errors?.required">Zipcode is required</div>
+    </div>
+    </div>
+
+    <div class="form-group">
+      <label for="name">Phone</label>
+      <input type="number" class="form-control" id="phone"  name="phone" formControlName='phone' [ngClass]="{ 'is-invalid': submitted && f.phone?.errors }" />
+      <div *ngIf="submitted && f.phone?.errors" class="invalid-feedback">
+        <div *ngIf="f.phone.errors?.required">Phone is required</div>
+    </div>
+    </div>
+
+    <!-- <div class="form-group">
+      <label for="name">cell</label>
+      <input type="text" class="form-control" id="cell"  name="cell" formControlName='cell' >
+    </div> -->
+
+    <label>0 is for saving account and 1 is for current account</label>
+    <label for="PAN">accounttype</label>
+    <input type="number" class="form-control" id="accounttype" placeholder="Enter accounttype" formControlName="accounttype"
+      [ngClass]="{ 'is-invalid': submitted && f.accounttype.errors }">
+    <div *ngIf="submitted && f.accounttype.errors" class="invalid-feedback">
+      <div *ngIf="f.accounttype.errors.required">account type is required</div>
+      <div *ngIf="f.accounttype.errors.pattern">Please Enter valid accounttype</div>
+    </div>
+   
+    
+<div class="text-center">
+    <button type="submit" class="btn btn-info" ><h4><b>Submit</b></h4></button></div>
+  </form>
+</div>
+</div>
+<!-- <div [hidden]="!submitted">
+  <h4>You submitted successfully!</h4>
+  <button class="btn btn-success" (click)="newEmployee()">Add</button>
+</div> -->

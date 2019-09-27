@@ -1,0 +1,40 @@
+
+<br>
+
+<br>
+<br>
+<div class="container">
+    <div class="p-4 mb-3 bg-info text-center font-weight-bold"><h2>Add Money</h2>   
+    </div>
+    <form  [formGroup]= "addmoney" (ngSubmit)="onSubmitaddmoney()" >
+        <div class="form-group">
+          <label for="SourceAccount"><h3><b>Account Number</b></h3></label>
+          <input type="" class="form-control" id="SourceAccount" aria-describedby="sourceAccountNo" formControlName='sourceAccountNo' placeholder="Enter Your Account Number" [ngClass]="{ 'is-invalid': submitted && f.sourceAccountNo?.errors }">
+          <small id="SourceAccount" class="form-text text-muted"><h5>We'll never share your accountNo with anyone else.</h5></small>
+          <div *ngIf="submitted && f.sourceAccountNo?.errors" class="invalid-feedback">
+       
+            <div *ngIf="f.sourceAccountNo.errors?.required">sourceAccountNo is required</div>
+          </div>
+        </div>
+        <!-- <div class="form-group">
+          <label for="TargetAccount">Target AccountNo</label>
+          <input type="TargetAccount" class="form-control" id="TargetAccount" placeholder="Enter Target Account Number">
+        </div> -->
+        <div class="form-group">
+            <label for="Amount"><h3><b>Amount</b></h3></label>
+            <input type="Amount" class="form-control" id="amount" formControlName='amount' placeholder="Please enter the Amount" [ngClass]="{ 'is-invalid': submitted && f.amount?.errors }">
+            <div *ngIf="submitted && f.amount?.errors" class="invalid-feedback">
+       
+              <div *ngIf="f.amount.errors?.required">amount is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+          <h5><b>
+            <input type="submit" class="btn-info" value="Add Money" /></b></h5>
+        </div>
+    
+        </form>
+</div>
+
+    <br>
+

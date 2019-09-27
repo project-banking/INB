@@ -1,0 +1,47 @@
+
+<div class="container login-container">
+    <div class="row">
+        <div class="col-md-6 login-form-1">
+            <h3>Customer</h3>
+            <form  [formGroup]= "data" >
+                <div class="form-group">
+                    <input type="text" class="form-control" formControlName='ac' placeholder="Enter Account*" value="" />
+                </div>
+                
+               
+                
+            </form>
+
+</div>
+</div>
+   
+        <table border="1"> 
+            
+                <tr>  
+                    <th>TransId</th>  
+                    <th>Account From</th>  
+                    <th>Account To</th> 
+                    <th>Amount</th>  
+                    <th>Date</th>      
+                    <th>Status</th> 
+                    <th></th>  
+                </tr>  
+              
+              
+                <tr *ngFor="let transactions of transaction">  
+                    <td>{{transactions.transId}}</td>  
+                    <td>{{transactions.sourceAccount.accountNumber}}</td>  
+                    <td>{{transactions.targetAccount.accountNumber}}</td>  
+                    <td>{{transactions.amount}}</td> 
+                    <td>{{transactions.date}}</td>  
+                    <td>{{transactions.status}}</td> 
+                 
+                     
+                </tr>  
+              
+            <button type="button" class="btn btn-danger mr-1" (click)="getallcustomertransaction()">GetData</button>  
+
+        </table>  
+      
+
+
