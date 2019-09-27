@@ -1,5 +1,7 @@
 package com.diaspark.INB.entity;
 
+import com.diaspark.INB.config.CustomAuthorityDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
@@ -54,6 +56,7 @@ public class UserPrincipal {
         this.emailId = emailId;
     }
 
+    @JsonDeserialize(using = CustomAuthorityDeserializer.class)
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
     }

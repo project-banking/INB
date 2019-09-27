@@ -4,7 +4,6 @@ public class UserAccountDto {
 	
 
 	private int accountType;
-    private double accountBalance;
     private long customerId;
 
 	public long getCustomerId() {
@@ -13,14 +12,6 @@ public class UserAccountDto {
 
 	public void setCustomerId(long customerId) {
 		this.customerId = customerId;
-	}
-
-	public double getAccountBalance() {
-		return accountBalance;
-	}
-
-	public void setAccountBalance(double accountBalance) {
-		this.accountBalance = accountBalance;
 	}
 
 	public int getAccountType() {

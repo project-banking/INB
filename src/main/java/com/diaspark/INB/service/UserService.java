@@ -1,18 +1,8 @@
 package com.diaspark.INB.service;
 
+import com.diaspark.INB.DTO.*;
+
 import java.util.List;
-
-import org.springframework.web.bind.annotation.RequestParam;
-
-import com.diaspark.INB.DTO.EmailResponseDTO;
-import com.diaspark.INB.DTO.LoginUserDTO;
-import com.diaspark.INB.DTO.RegisterUserDTO;
-import com.diaspark.INB.DTO.SendMailDTO;
-import com.diaspark.INB.DTO.TransactionDTO;
-import com.diaspark.INB.DTO.TransactionResponseDTO;
-import com.diaspark.INB.DTO.UserAccountDto;
-import com.diaspark.INB.DTO.UserResponseDTO;
-
 
 
 public interface UserService {
@@ -20,20 +10,10 @@ public interface UserService {
 
     UserResponseDTO authenticateUser(LoginUserDTO loginUserDTO) throws Exception;
 
-    void saveAccount(UserAccountDto userAccountDto);
-
     EmailResponseDTO sendQuery(SendMailDTO sendMailDTO);
 
-    List<UserResponseDTO> retreiveUsersName(String status);
+    List<UserResponseDTO> retreiveUsers(String status);
 
     UserResponseDTO updateUserStatus(long customerId, String status);
 
-     void requestMoney(TransactionDTO userTransaction);
-
-	void updateTransactionStatus(String status);
-   List<TransactionResponseDTO> retrievePendingTransactions( String status);
-
-	
-    
-	//public UserTransaction proceedTransaction(String transType);
 }

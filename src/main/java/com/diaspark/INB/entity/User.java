@@ -14,20 +14,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "customer_id", unique = true)
     private long id;
-    
-    @OneToMany(mappedBy="user")
+
+    @OneToMany(mappedBy = "user")
     private Set<UserAccount> userAccounts;
-    
-    
-    public Set<UserAccount> getUserAccounts() {
-		return userAccounts;
-	}
 
-	public void setUserAccounts(Set<UserAccount> userAccounts) {
-		this.userAccounts = userAccounts;
-	}
-
-	@Size(max = 50)
+    @Size(max = 50)
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
@@ -47,15 +38,7 @@ public class User {
     @NotEmpty(message = "Please provide your Address")
     private String addressLine1;
     private int accountType;
-    public int getAccountType() {
-		return accountType;
-	}
-
-	public void setAccountType(int accountType) {
-		this.accountType = accountType;
-	}
-
-	private String addressLine2;
+    private String addressLine2;
     private String addressLine3;
     private String city;
     private String state;
@@ -64,9 +47,45 @@ public class User {
     private String cell;
     private String email;
     private String status;
-
     @Column(name = "last_used", nullable = true)
     private Date lastUsed;
+
+    @Column(name = "retry_count", nullable = true)
+    private int retryCount;
+
+    private String role;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public int getRetryCount() {
+        return retryCount;
+    }
+
+    public void setRetryCount(int retryCount) {
+        this.retryCount = retryCount;
+    }
+
+    public int getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(int accountType) {
+        this.accountType = accountType;
+    }
 
     public String getUsername() {
         return username;
@@ -195,4 +214,13 @@ public class User {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public Set<UserAccount> getUserAccounts() {
+        return userAccounts;
+    }
+
+    public void setUserAccounts(Set<UserAccount> userAccounts) {
+        this.userAccounts = userAccounts;
+    }
+
 }

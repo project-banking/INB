@@ -10,6 +10,16 @@ public class LoginUserDTO {
     @NotEmpty(message="Please provide your password")
     private String password;
 
+    private boolean admin;
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -18,7 +28,7 @@ public class LoginUserDTO {
         this.username = username;
     }
 
-    public String getPassword() {
+	public String getPassword() {
         return password;
     }
 

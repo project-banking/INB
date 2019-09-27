@@ -1,27 +1,12 @@
 package com.diaspark.INB.controller;
 
-import java.util.List;
-
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.diaspark.INB.DTO.EmailResponseDTO;
-import com.diaspark.INB.DTO.LoginUserDTO;
-import com.diaspark.INB.DTO.RegisterUserDTO;
-import com.diaspark.INB.DTO.SendMailDTO;
-import com.diaspark.INB.DTO.TransactionDTO;
-import com.diaspark.INB.DTO.TransactionResponseDTO;
-import com.diaspark.INB.DTO.UserAccountDto;
-import com.diaspark.INB.DTO.UserResponseDTO;
+import com.diaspark.INB.DTO.*;
 import com.diaspark.INB.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -41,49 +26,29 @@ public class UserController {
         return userService.authenticateUser(loginUserDTO);
     }
 
-    @PostMapping("/account")
-    public void account(@RequestBody UserAccountDto userAccountDto) {
-        userService.saveAccount(userAccountDto);
-    }
-
+    @PreAuthorize("hasRole('ROLE_user')")
     @PostMapping("/contact-us")
     public EmailResponseDTO send(@RequestBody SendMailDTO sendMailDTO) {
         return userService.sendQuery(sendMailDTO);
-    }
-    //user request add money
-    
-    @PostMapping("/requestMoney")
-    public void request(@RequestBody TransactionDTO userTransaction) throws Exception {
-    	 userService.requestMoney(userTransaction);
     }
 
     /*
      * usage : http://localhost:8080/user/fetch?status=rejected
      */
+    @PreAuthorize("hasRole('ROLE_admin')")
     @GetMapping("/fetch")
-    public List<UserResponseDTO> retrieveUsersName(@RequestParam String status) {
-        return userService.retreiveUsersName(status);
+    public List<UserResponseDTO> retreiveUsers(@RequestParam String status) {
+        return userService.retreiveUsers(status);
     }
-    @GetMapping("/fetch/addMoney")
-    public List<TransactionResponseDTO> retrievePendingTransactions(@RequestParam String status){
-    	return userService.retrievePendingTransactions(status);
-    }
+
     /*
      * http://localhost:8080/user/update/status/1?status=approved
      */
-    @PutMapping("/update/status/{customerId}")
+    @PreAuthorize("hasRole('ROLE_admin')")
+    @PutMapping("/update/{customerId}")
     public UserResponseDTO updateUserStatus(@PathVariable long customerId, @RequestParam String status) {
-         return userService.updateUserStatus(customerId, status);
-	
+        return userService.updateUserStatus(customerId, status);
+
     }
-    /*@PutMapping("/addmoney/{accountNo}")
-    public TransactionDTO updateMoney(@PathVariable long accountNo,@RequestParam String money) {
-    	return   
-    }*/
-    @PutMapping("/update/transactionstatus/{status}")
-    public void updateTransactionStatus(@PathVariable("status") String status) {
-    	userService.updateTransactionStatus(status);
-    }
-    
 }
 
