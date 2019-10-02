@@ -70,7 +70,7 @@ public class EntityToDTOMapper {
     public AccountResponseDTO buildAccountResponseDto(UserAccount userAccount) {
         AccountResponseDTO accountResponseDTO = new AccountResponseDTO();
         accountResponseDTO.setBalance(userAccount.getAccountBalance());
-        String accountType = AccountType.findAccountByCode(String.valueOf(userAccount.getAccountType())).getDescritpion();
+        String accountType = AccountType.findAccountByDescritpion(String.valueOf(userAccount.getAccountType())).getDescritpion();
         accountResponseDTO.setAccountType(accountType);
         accountResponseDTO.setAccountNumber(userAccount.getAccountNumber());
         return accountResponseDTO;

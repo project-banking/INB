@@ -31,9 +31,9 @@ public enum AccountType {
         this.descritpion = descritpion;
     }
 
-    public static AccountType findAccountByCode(String code) {
+    public static AccountType findAccountByDescritpion(String descritpion) {
         for (AccountType accountType : values()) {
-            if (code.equals(accountType.getCode())) {
+            if (descritpion.equals(accountType.getDescritpion())) {
                 return accountType;
             }
         }

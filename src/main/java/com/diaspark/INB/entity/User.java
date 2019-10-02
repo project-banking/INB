@@ -11,7 +11,7 @@ import java.util.Set;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+   // @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "customer_id", unique = true)
     private long id;
 
@@ -37,7 +37,7 @@ public class User {
     @Column(name = "address_line1", nullable = false)
     @NotEmpty(message = "Please provide your Address")
     private String addressLine1;
-    private int accountType;
+    
     private String addressLine2;
     private String addressLine3;
     private String city;
@@ -79,13 +79,7 @@ public class User {
         this.retryCount = retryCount;
     }
 
-    public int getAccountType() {
-        return accountType;
-    }
-
-    public void setAccountType(int accountType) {
-        this.accountType = accountType;
-    }
+    
 
     public String getUsername() {
         return username;

@@ -4,9 +4,9 @@ import com.diaspark.INB.exception.InvalidTransactionException;
 
 public enum UtilityAccounts {
 
-    Internet(3, "internet"),
-    Electricity(4, "electricity"),
-    Mobile(5, "mobile");
+    Internet(2, "internet"),
+    Electricity(3, "electricity"),
+    Mobile(4, "mobile");
 
     private int customerId;
     private String utilityType;

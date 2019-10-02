@@ -60,7 +60,8 @@ public class TransactionServiceImpl implements TransactionService {
         newUserTransaction.setTargetAccount(targetAccount);
 
         //money transfer to different accounts
-        if (sourceAccountNo != targetAccountNo && sourceAccount.getAccountBalance() >= newUserTransaction.getAmount()) {
+        if (sourceAccountNo != targetAccountNo && sourceAccount.getAccountBalance() >= newUserTransaction.getAmount()) 
+       {
             newUserTransaction.setStatus(UserStatus.APPROVED.getStatus());
             newUserTransaction.setDate(new Date());
             sourceAccount.setAccountBalance(sourceAccount.getAccountBalance() - newUserTransaction.getAmount());

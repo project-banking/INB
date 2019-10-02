@@ -12,7 +12,7 @@ public class UserAccount {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+   // @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "account_number", nullable = false, unique = true)
     private long accountNumber;
 
@@ -24,7 +24,7 @@ public class UserAccount {
     private Set<UserTransaction> userTransaction;
 
     @Column(name = "account_type", nullable = true)
-    private int accountType;
+    private String accountType;
 
     @Column(name = "balance", nullable = false)
     private double accountBalance;
@@ -62,11 +62,11 @@ public class UserAccount {
         this.accountNumber = accountNumber;
     }
 
-    public int getAccountType() {
+    public String getAccountType() {
         return accountType;
     }
 
-    public void setAccountType(int accountType) {
+    public void setAccountType(String accountType) {
         this.accountType = accountType;
     }
 }

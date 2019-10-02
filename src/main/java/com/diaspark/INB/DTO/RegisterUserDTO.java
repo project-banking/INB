@@ -49,7 +49,7 @@ public class RegisterUserDTO {
 
 	@NotEmpty(message="Please provide your email")
 	private String email;
-	private int accountType;
+	private String accountType;
 
 	private boolean admin;
 
@@ -157,11 +157,11 @@ public class RegisterUserDTO {
 		this.email = email;
 	}
 
-	public int getAccountType() {
+	public String getAccountType() {
 		return accountType;
 	}
 
-	public void setAccountType(int accountType) {
+	public void setAccountType(String accountType) {
 		this.accountType = accountType;
 	}
 

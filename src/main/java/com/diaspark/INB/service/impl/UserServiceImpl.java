@@ -8,6 +8,8 @@ import com.diaspark.INB.exception.EmailSendException;
 import com.diaspark.INB.exception.ForbiddenException;
 import com.diaspark.INB.exception.NotFoundException;
 import com.diaspark.INB.mapper.EntityToDTOMapper;
+import com.diaspark.INB.repository.AccountSequenceRepository;
+import com.diaspark.INB.repository.CustomerSequenceRepository;
 import com.diaspark.INB.repository.UserAccountRepository;
 import com.diaspark.INB.repository.UserRepository;
 import com.diaspark.INB.repository.UserTransactionRepository;
@@ -31,6 +33,11 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     @Autowired
     private UserAccountRepository userAccountRepository;
+@Autowired
+private AccountSequenceRepository accountsequencerepository;
+@Autowired
+private CustomerSequenceRepository customersequencerepository;
+
 
     @Autowired
     private EntityToDTOMapper entityToDTOMapper;
@@ -73,6 +80,10 @@ public class UserServiceImpl implements UserService {
         newUser.setCity(registerUserDTO.getCity());
         newUser.setPhone(registerUserDTO.getPhone());
         newUser.setUsername(registerUserDTO.getUsername());
+        CustomerSequence customersequence = customersequencerepository.findByName("customersequence");
+      newUser.setId(customersequence.getId()+1);
+      customersequence.setId(customersequence.getId()+1);
+      customersequencerepository.save(customersequence);
 
         if(registerUserDTO.isAdmin()){
             newUser.setRole(Role.ADMIN.getRole());
@@ -97,7 +108,7 @@ public class UserServiceImpl implements UserService {
         }
 
         if ((!existingUser.getPassword().equals(loginUserDTO.getPassword())
-                && !UserStatus.APPROVED.getStatus().equals(existingUser.getStatus()))) {
+                || !UserStatus.APPROVED.getStatus().equals(existingUser.getStatus()))) {
             existingUser.setRetryCount(existingUser.getRetryCount() + 1);
             userRepository.save(existingUser);
             throw new ForbiddenException("username or password is incorrect");
@@ -147,11 +158,16 @@ public class UserServiceImpl implements UserService {
     }
 
     private UserAccount createAccount(RegisterUserDTO registerUserDto, User user) {
-        AccountType.findAccountByCode(String.valueOf(registerUserDto.getAccountType()));
+        AccountType.findAccountByDescritpion(String.valueOf(registerUserDto.getAccountType()));
         UserAccount userAccount = new UserAccount();
         userAccount.setAccountBalance(0);
         userAccount.setAccountType(registerUserDto.getAccountType());
         userAccount.setUser(user);
+        AccountSequence accountsequence = accountsequencerepository.findByName("accountsequence");
+        userAccount.setAccountNumber(accountsequence.getId()+1);
+        accountsequence.setId(accountsequence.getId()+1);
+        accountsequencerepository.save(accountsequence);
+
         return userAccount;
     }
 

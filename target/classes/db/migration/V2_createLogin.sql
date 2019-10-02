@@ -1,1 +1,0 @@
-create table if not exists login (user_name varchar(50) not null, customer_id bigint, last_used date, password varchar(50) not null, primary key (user_name)) engine=MyISAM

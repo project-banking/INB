@@ -3,7 +3,7 @@ package com.diaspark.INB.DTO;
 public class UserAccountDto {
 	
 
-	private int accountType;
+	private String accountType;
     private long customerId;
 
 	public long getCustomerId() {
@@ -14,11 +14,11 @@ public class UserAccountDto {
 		this.customerId = customerId;
 	}
 
-	public int getAccountType() {
+	public String getAccountType() {
 		return accountType;
 	}
 
-	public void setAccountType(int accountType) {
+	public void setAccountType(String accountType) {
 		this.accountType = accountType;
 	}
 

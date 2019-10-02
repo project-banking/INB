@@ -7,12 +7,15 @@ com\diaspark\INB\config\WebSecurityConfig.class
 com\diaspark\INB\repository\UserAccountRepository.class
 com\diaspark\INB\service\impl\UserServiceImpl.class
 com\diaspark\INB\entity\Role.class
+com\diaspark\INB\entity\AccountSequence.class
 com\diaspark\INB\filter\InbAppAuthenticationEntryPoint.class
 com\diaspark\INB\DTO\UserResponseDTO.class
 com\diaspark\INB\DTO\TransactionResponseDTO.class
 com\diaspark\INB\repository\UserRepository.class
 com\diaspark\INB\entity\TransactionType.class
+com\diaspark\INB\repository\AccountSequenceRepository.class
 com\diaspark\INB\controller\AccountController.class
+com\diaspark\INB\repository\CustomerSequenceRepository.class
 com\diaspark\INB\entity\UserStatus.class
 com\diaspark\INB\service\TransactionService.class
 com\diaspark\INB\DTO\EmailResponseDTO.class
@@ -44,3 +47,4 @@ com\diaspark\INB\DTO\SendMailDTO.class
 com\diaspark\INB\InbApplication.class
 com\diaspark\INB\exception\BadRequestException.class
 com\diaspark\INB\entity\UtilityAccounts.class
+com\diaspark\INB\entity\CustomerSequence.class
