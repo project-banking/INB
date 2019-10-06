@@ -88,13 +88,23 @@ public class TransactionServiceImpl implements TransactionService {
         UserAccount targetAccount = userTransaction.getTargetAccount();
 
         //Check if source account is equal to target account and transaction state is changing from pending to approved
-        if ((sourceAccount.getAccountNumber() == targetAccount.getAccountNumber()) && (UserStatus.PENDING.getStatus().equals(userTransaction.getStatus()) && UserStatus.APPROVED.getStatus().equals(status))) {
+        if ((sourceAccount.getAccountNumber() == targetAccount.getAccountNumber()) && (UserStatus.PENDING.getStatus().equals(userTransaction.getStatus())&& UserStatus.APPROVED.getStatus().equals(status)))
+        	{
             userTransaction.setStatus(status);
             userTransaction.setDate(new Date());
             targetAccount.setAccountBalance(targetAccount.getAccountBalance() + userTransaction.getAmount());
             userAccountRepository.save(targetAccount);
             UserTransaction savedUserTransaction = userTransactionRepository.save(userTransaction);
             return entityToDTOMapper.buildTransactionResponseDTO(savedUserTransaction);
+        }
+        else if (UserStatus.REJECTED.getStatus().equals(status))
+        {
+        	 userTransaction.setStatus(status);
+             userTransaction.setDate(new Date());
+             targetAccount.setAccountBalance(targetAccount.getAccountBalance() + 0);
+             userAccountRepository.save(targetAccount);
+             UserTransaction savedUserTransaction = userTransactionRepository.save(userTransaction);
+             return entityToDTOMapper.buildTransactionResponseDTO(savedUserTransaction);
         }
         throw new BadRequestException("Only Pending to Approved update is supported");
     }

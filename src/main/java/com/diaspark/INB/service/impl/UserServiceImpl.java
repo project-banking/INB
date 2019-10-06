@@ -81,7 +81,7 @@ private CustomerSequenceRepository customersequencerepository;
         newUser.setPhone(registerUserDTO.getPhone());
         newUser.setUsername(registerUserDTO.getUsername());
         CustomerSequence customersequence = customersequencerepository.findByName("customersequence");
-      newUser.setId(customersequence.getId()+1);
+          newUser.setId(customersequence.getId()+1);
       customersequence.setId(customersequence.getId()+1);
       customersequencerepository.save(customersequence);
 
